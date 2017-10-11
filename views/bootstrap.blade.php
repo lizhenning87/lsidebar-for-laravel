@@ -16,19 +16,24 @@
 
             </a>
 
+            @if(count($sidebar->child) != 0)
 
-            <ul class="nav nav-second-level @if(!$sidebar->_activity) collapse @endif">
+                <ul class="nav nav-second-level @if(!$sidebar->_activity) collapse @endif">
 
-                @foreach($sidebar->child as $child)
-
-
-                    <li @if($child->_activity) class="active" @endif><a href="{{ $child->url }}">{{ $child->title }}</a></li>
-
-                @endforeach
+                    @foreach($sidebar->child as $child)
 
 
+                        <li @if($child->_activity) class="active" @endif><a href="{{ $child->url }}">{{ $child->title }}</a></li>
 
-            </ul>
+                    @endforeach
+
+
+
+                </ul>
+
+            @endif
+
+
         </li>
 
     @endforeach
