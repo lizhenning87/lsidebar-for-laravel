@@ -40,9 +40,15 @@ class LSideBarManager
     }
 
 
-    public function render() {
 
-        $sidebars = $this->generator->generate($this->callbacks);
+    public function render($name) {
+
+        if (is_null($name))
+            list($name, $params) = $this->currentRoute->get();
+        else
+            $params = array_slice(func_get_args(), 1);
+
+        $sidebars = $this->generator->generate($this->callbacks, $name, $params);
 
         return $this->view->render($this->viewName, $sidebars);
 

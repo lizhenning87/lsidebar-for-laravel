@@ -25,11 +25,12 @@ class Generator
     protected $key = '';
     protected $key_parent = '';
 
+    protected $route_name = '';
+
     protected function call($name, $params)
     {
         if (!isset($this->callbacks[$name]))
             throw new \Exception("LSideBar not found with name \"{$name}\"");
-
 
         $this->key = $name;
 
@@ -49,26 +50,24 @@ class Generator
 
     public function push($title, $url = null, array $data = [])
     {
+
+        $_activity = $this->route_name == $this->key;
+
+        $obj = (object) array_merge($data, [
+            'title' => $title,
+            'url' => $url,
+            'key' => $this->key,
+            'child' => [],
+            '_activity' => $_activity,
+        ]);
+
+
         if ($this->key_parent == '')
         {
-            $this->lsidebar[] = (object) array_merge($data, [
-                'title' => $title,
-                'url' => $url,
-                'key' => $this->key,
-                'child' => [],
-            ]);
-
+            $this->lsidebar[] = $obj;
         }else
         {
-            $obj = (object) array_merge($data, [
-                'title' => $title,
-                'url' => $url,
-                'key' => $this->key,
-                'child' => [],
-            ]);
-
             $this->searchKey($this->lsidebar, $obj);
-
         }
 
     }
@@ -76,11 +75,14 @@ class Generator
 
     protected function searchKey($array, $obj) {
 
-        foreach ($array as $item)
+        foreach ($array as &$item)
         {
             if ($item->key == $this->key_parent)
             {
+
+                $item->_activity = $item->_activity ?:$obj->_activity;
                 $item->child[] = $obj;
+
                 break;
             }
 
@@ -91,15 +93,17 @@ class Generator
     }
 
 
-    public function generate(array $callbacks)
+    public function generate(array $callbacks, $name, $params)
     {
+
+        $this->route_name = $name;
 
         $this->lsidebar = [];
         $this->callbacks   = $callbacks;
 
         $keys = array_keys($callbacks);
 
-        foreach ($keys as $key)
+        foreach ($keys as &$key)
         {
             $this->key_parent = '';
             $this->call($key, []);

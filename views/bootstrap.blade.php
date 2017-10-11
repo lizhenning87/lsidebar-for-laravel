@@ -1,60 +1,36 @@
 @if ($sidebars)
 
-    <!-- BEGIN SIDEBAR -->
-    <div class="page-sidebar-wrapper">
+    @foreach($sidebars as $sidebar)
 
-        <!-- BEGIN SIDEBAR -->
-        <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+        <li @if($sidebar->_activity) class="active" @endif>
+            <a href="{{ $sidebar->url }}">
+                <i class="@if(isset($sidebar->icon)) {{ $sidebar->icon }} @endif"></i>
+                <span class="nav-label">{{ $sidebar->title }}</span>
 
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                <li class="sidebar-toggler-wrapper hide">
-                    <div class="sidebar-toggler">
-                        <span></span>
-                    </div>
-                </li>
-                <!-- END SIDEBAR TOGGLER BUTTON -->
+                @if(count($sidebar->child) != 0)
+
+                    <span class="fa arrow"></span>
+
+                @endif
 
 
-                <li class="heading">
-                    <h3 class="uppercase">功能列表</h3>
-                </li>
-
-                @foreach($sidebars as $sidebar)
-
-                    <li class="nav-item">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <i class="icon-home"></i>
-                            <span class="title">{{ $sidebar->title }}</span>
-                        </a>
-                        <ul class="sub-menu">
+            </a>
 
 
-                            @foreach($sidebar->child as $child)
+            <ul class="nav nav-second-level @if(!$sidebar->_activity) collapse @endif">
 
-                                <li class="nav-item">
-                                    <a href="{{ $child->url }}" class="nav-link ">
-                                        <span class="title">{{ $child->title }}</span>
-                                    </a>
-                                </li>
+                @foreach($sidebar->child as $child)
 
-                            @endforeach
 
-                        </ul>
-                    </li>
+                    <li @if($child->_activity) class="active" @endif><a href="{{ $child->url }}">{{ $child->title }}</a></li>
 
                 @endforeach
 
 
+
             </ul>
-            <!-- END SIDEBAR MENU -->
-        </div>
-        <!-- END SIDEBAR -->
+        </li>
 
-
-    </div>
-    <!-- END SIDEBAR -->
-
+    @endforeach
 
 @endif
