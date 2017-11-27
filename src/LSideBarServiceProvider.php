@@ -25,6 +25,16 @@ class LSideBarServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+
+        $configFile = __DIR__ . '/../config/lsidebar.php';
+
+        $this->mergeConfigFrom($configFile, 'lsidebar');
+
+        $this->publishes([
+            $configFile => config_path('lsidebar.php')
+        ]);
+
+
         $this->registerLSideBars();
     }
 
@@ -36,7 +46,7 @@ class LSideBarServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->singleton('lsidebar', function (){
+        $this->app->singleton('lsidebar', function ($app){
 
             $lsidebar = $this->app->make(LSideBarManager::class);
 
@@ -44,6 +54,7 @@ class LSideBarServiceProvider extends ServiceProvider
 
             $this->loadViewsFrom($viewPath, 'lsidebar');
 
+            $lsidebar->setView($app['config']['lsidebar.view']);
 
             return $lsidebar;
 

@@ -28,8 +28,6 @@ class LSideBarManager
         $this->generator    = $generator;
         $this->currentRoute = $currentRoute;
         $this->view         = $view;
-
-        $this->viewName = 'lsidebar::bootstrap';
     }
 
     public function register($name, $callback)
@@ -58,6 +56,13 @@ class LSideBarManager
     public function version() {
 
         return 'version beta';
+    }
+
+
+    public function setView($view) {
+
+        $this->viewName = $view;
+
     }
 
 }
