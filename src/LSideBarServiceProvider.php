@@ -8,6 +8,14 @@ class LSideBarServiceProvider extends ServiceProvider
 {
 
     /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
+
+    /**
      * Get the services provided by the provider.
      *
      * @return array
@@ -26,11 +34,13 @@ class LSideBarServiceProvider extends ServiceProvider
     {
         //
 
-        $configFile = __DIR__ . '/../config/lsidebar.php';
-
-        $this->publishes([
-            $configFile => config_path('lsidebar.php')
-        ], 'config');
+        $configPath = __DIR__ . '/config/lsidebar.php';
+        if (function_exists('config_path')) {
+            $publishPath = config_path('lsidebar.php');
+        } else {
+            $publishPath = base_path('config/lsidebar.php');
+        }
+        $this->publishes([$configPath => $publishPath], 'config');
 
 
         $this->registerLSideBars();
@@ -45,8 +55,8 @@ class LSideBarServiceProvider extends ServiceProvider
     {
         //
 
-        $configFile = __DIR__ . '/../config/lsidebar.php';
-        $this->mergeConfigFrom($configFile, 'lsidebar');
+        $configPath = __DIR__ . '/config/lsidebar.php';
+        $this->mergeConfigFrom($configPath, 'lsidebar');
 
         $this->app->singleton('lsidebar', function ($app){
 
