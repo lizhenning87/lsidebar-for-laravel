@@ -26,13 +26,13 @@ class LSideBarServiceProvider extends ServiceProvider
     {
         //
 
-        $configFile = __DIR__ . '/config/lsidebar.php';
+        $configFile = __DIR__ . '/../config/lsidebar.php';
 
         $this->mergeConfigFrom($configFile, 'lsidebar');
 
         $this->publishes([
             $configFile => config_path('lsidebar.php')
-        ]);
+        ], 'config');
 
 
         $this->registerLSideBars();
