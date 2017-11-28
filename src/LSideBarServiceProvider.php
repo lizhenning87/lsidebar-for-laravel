@@ -28,8 +28,6 @@ class LSideBarServiceProvider extends ServiceProvider
 
         $configFile = __DIR__ . '/../config/lsidebar.php';
 
-        $this->mergeConfigFrom($configFile, 'lsidebar');
-
         $this->publishes([
             $configFile => config_path('lsidebar.php')
         ], 'config');
@@ -46,6 +44,10 @@ class LSideBarServiceProvider extends ServiceProvider
     public function register()
     {
         //
+
+        $configFile = __DIR__ . '/../config/lsidebar.php';
+        $this->mergeConfigFrom($configFile, 'lsidebar');
+
         $this->app->singleton('lsidebar', function ($app){
 
             $lsidebar = $this->app->make(LSideBarManager::class);
