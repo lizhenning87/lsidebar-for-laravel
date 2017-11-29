@@ -112,3 +112,16 @@ LSideBar::register('goods-list', function ($sidebars){
 
  
 
+### 注意事项
+
+
+
+```
+
+[Symfony\Component\Debug\Exception\FatalThrowableError]         
+Class 'Zning\LaravelSideBar\LSideBarServiceProvider' not found 
+
+```
+
+如果使用中遇到上面的错误，请使用`composer dump-autoload -o`
+
