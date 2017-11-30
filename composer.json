@@ -19,10 +19,18 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Zning\\LaravelSideBar\\LSideBarServiceProvider"
+            ],
+            "aliases": {
+                "LSideBar": "Zning\\LaravelSideBar\\LSideBarFacade"
+            }
         }
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Zning\\LaravelSideBar": "src/"
         },
         "files": [
