@@ -110,6 +110,16 @@ LSideBar::register('goods-list', function ($sidebars){
 
 ```
 
+
+### 默认主题
+
+```
+
+bootstrap
+bootstrap2
+
+```
+
  
 
 ### 注意事项
