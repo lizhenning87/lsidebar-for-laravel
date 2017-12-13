@@ -10,7 +10,7 @@ namespace Zning\LaravelSideBar;
 
 
 use Zning\LaravelSideBar\Generator\Generator;
-use Zning\LaravelSideBar\Route\CurrentRoute;
+use Zning\LaravelSideBar\Route\Route;
 use Zning\LaravelSideBar\View\View;
 
 class LSideBarManager
@@ -23,7 +23,7 @@ class LSideBarManager
     protected $viewName;
 
 
-    public function __construct(CurrentRoute $currentRoute, Generator $generator, View $view)
+    public function __construct(Route $currentRoute, Generator $generator, View $view)
     {
         $this->generator    = $generator;
         $this->currentRoute = $currentRoute;

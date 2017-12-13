@@ -19,7 +19,7 @@ use Illuminate\Contracts\Routing\Registrar as Router;
  * 参考Breadcrumbs
  */
 
-class CurrentRoute
+class Route
 {
 
     protected $route;
